@@ -200,11 +200,11 @@ with col2:
                  "Class name: ", class_info['name'])
         st.write("Top 5 product Ions:", class_info['top5'])
 
-        #mFormula = st.text_input("Enter Molecular Formula:", 'C5N5H6')
-        #try:
-        #    st.write('Molecular weight: ', round(mn.getAverageMolecularMass(mFormula), 2))
-        #except:
-        #    st.write('failed formula')
+        mFormula = st.text_input("Enter Molecular Formula:", 'C5N5H6')
+        try:
+            st.write('Molecular weight: ', round(mn.getAverageMolecularMass(mFormula), 2))
+        except:
+            st.write('failed formula')
 
 
 

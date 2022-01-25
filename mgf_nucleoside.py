@@ -4,15 +4,15 @@ import msvis
 import numpy as np
 from tqdm import tqdm
 import pickle
-#import pyopenms as poms
+import molmass as mm
 
 
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 
 
-#def getAverageMolecularMass(formula):
-#    return poms.EmpiricalFormula(formula).getAverageWeight()
+def getAverageMolecularMass(formula):
+    return mm.Formula(formula).mass
 
 class MSspecData():
     def __init__(self):
