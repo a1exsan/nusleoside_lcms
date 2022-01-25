@@ -1,0 +1,7 @@
+pandas
+streamlit
+bokeh == 2.4.1
+pyopenms
+matplotlib
+tqdm
+numpy
