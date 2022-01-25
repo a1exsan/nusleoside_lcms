@@ -109,12 +109,13 @@ def filtrate_data_2(msData, low_points, low_intens):
 
     return msData
 
+class openfile():
+    name = None
 
-#st.sidebar.write('<p class="big-font"> </p>')
+
 st.sidebar.markdown('<p class="big-font">Nucleoside modification analysis tool</p>', unsafe_allow_html=True)
 st.sidebar.write("Beta version")
 st.sidebar.markdown('<p class="big-font">Upload mass spectrometry data:</p>', unsafe_allow_html=True)
-
 
 
 msData = None
@@ -122,17 +123,26 @@ selected_class = None
 
 uploaded_file = st.sidebar.file_uploader("Choose a file (*.mgf)")
 
-pubchem_db = load_pubchem_base()
+demo_data = st.sidebar.radio('Demo data', ("E.coli tRNA data", "Yeast tRNA data"))
 
+if demo_data == "E.coli tRNA data":
+    mgfData = upload_mgf(f'data/trna_ecoli.mgf')
+    msData = get_msData(mgfData)
+
+elif demo_data == "Yeast tRNA data":
+    mgfData = upload_mgf(f'data/trna_yeast.mgf')
+    msData = get_msData(mgfData)
+
+
+pubchem_db = load_pubchem_base()
+modomix_db = load_modomix_base()
 
 if uploaded_file is not None:
     with open(f'data/temp/{uploaded_file.name}', 'wb') as f:
         f.write(uploaded_file.getvalue())
-
     mgfData = upload_mgf(f'data/temp/{uploaded_file.name}')
-    msData = get_msData(mgfData)
 
-    modomix_db = load_modomix_base()
+    msData = get_msData(mgfData)
 
 
 col1, col2 = st.columns([2, 1])
