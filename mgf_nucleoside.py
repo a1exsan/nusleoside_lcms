@@ -4,15 +4,15 @@ import msvis
 import numpy as np
 from tqdm import tqdm
 import pickle
-import pyopenms as poms
+#import pyopenms as poms
 
 
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 
 
-def getAverageMolecularMass(formula):
-    return poms.EmpiricalFormula(formula).getAverageWeight()
+#def getAverageMolecularMass(formula):
+#    return poms.EmpiricalFormula(formula).getAverageWeight()
 
 class MSspecData():
     def __init__(self):
@@ -256,11 +256,11 @@ class MSspecData():
     def PMZ_filter(self, tab, key_seq='seq'):
         ret = []
 
-        for item in tab:
-            peptide = poms.AASequence.fromString(item[key_seq])
-            mz = peptide.getMonoWeight(poms.Residue.ResidueType.Full, int(item['charge'])) / int(item['charge'])
-            if abs(mz - float(item['mz'])) < self.tol:
-                ret.append(item)
+        #for item in tab:
+        #    peptide = poms.AASequence.fromString(item[key_seq])
+        #    mz = peptide.getMonoWeight(poms.Residue.ResidueType.Full, int(item['charge'])) / int(item['charge'])
+        #    if abs(mz - float(item['mz'])) < self.tol:
+        #        ret.append(item)
 
         return ret
 
