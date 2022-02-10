@@ -334,15 +334,17 @@ class mgf2DMapConverter():
             for uid in self.mzData[self.mzData['class'] == c]['uid']:
                 spec += self.__ms2ToVec(self.ms2Tab[uid]['ms2'], self.ms2Tab[uid]['intens'], self.min_mz, self.max_mz)
                 count += 1
-            #spec = spec / count
-            self.ms2Data['ms2'].append([i for i in range(spec.shape[0]) if spec[i] != 0])
-            self.ms2Data['intens'].append([spec[i] for i in range(spec.shape[0]) if spec[i] != 0])
-            self.ms2Data['class'].append(c)
-            self.ms2Data['max_int'].append(max(self.ms2Data['intens'][-1]))
-            self.ms2Data['point_count'].append(count)
-            self.ms2Data['mz'].append(self.mzData[self.mzData['class'] == c]['mz'].max())
-            self.ms2Data['rt'].append(self.mzData[self.mzData['class'] == c]['rt'].mean())
-            self.ms2Data['name'].append(c)
+
+            ms2 = [i for i in range(spec.shape[0]) if spec[i] != 0]
+            if len(ms2) > 0:
+                self.ms2Data['ms2'].append(ms2)
+                self.ms2Data['intens'].append([spec[i] for i in range(spec.shape[0]) if spec[i] != 0])
+                self.ms2Data['class'].append(c)
+                self.ms2Data['max_int'].append(max(self.ms2Data['intens'][-1]))
+                self.ms2Data['point_count'].append(count)
+                self.ms2Data['mz'].append(self.mzData[self.mzData['class'] == c]['mz'].max())
+                self.ms2Data['rt'].append(self.mzData[self.mzData['class'] == c]['rt'].mean())
+                self.ms2Data['name'].append(c)
 
         self.ms2Data = pd.DataFrame(self.ms2Data)
 
