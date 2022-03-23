@@ -158,7 +158,7 @@ with col2:
 
         min_mz, max_mz = st.select_slider(
         'Select a range of mass / charge',
-        options=range(50, 810, 10),
+        options=range(50, 1610, 10),
         value=(200, 400))
         #st.write('Range of mass / charge', min_mz, '--', max_mz)
 
