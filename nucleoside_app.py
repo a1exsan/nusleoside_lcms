@@ -216,6 +216,11 @@ with col1:
         draw_ms_spectra(msData, selected_class)
 
     if msData != None:
+        columns = ['class', 'rt', 'mz', 'area%', 'name']
+        st.markdown('<p class="big-font">Result Information:</p>', unsafe_allow_html=True)
+        st.dataframe(msData.ms2Data[columns])
+
+    if msData != None:
         st.markdown('<p class="big-font">Possible candidates (PubChem):</p>', unsafe_allow_html=True)
         pubchem_df = find_mass(pubchem_db, msData, selected_class, treshold=0.5)
 

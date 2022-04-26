@@ -327,12 +327,13 @@ class mgf2DMapConverter():
         classes = list(set(self.mzData['class']))
         self.ms2Data = {'mz': [], 'rt': [], 'name': [],
                         'ms2': [], 'intens': [], 'class': [],
-                        'max_int': [], 'point_count': []}
+                        'max_int': [], 'point_count': [], 'sum_intens': []}
         for c in tqdm(classes, desc='average ms2:'):
             spec = self.__ms2ToVec([], [], self.min_mz, self.max_mz)
-            count = 0
+            count, sum_intens = 0, 0.
             for uid in self.mzData[self.mzData['class'] == c]['uid']:
                 spec += self.__ms2ToVec(self.ms2Tab[uid]['ms2'], self.ms2Tab[uid]['intens'], self.min_mz, self.max_mz)
+                sum_intens += max(self.ms2Tab[uid]['intens'])
                 count += 1
 
             ms2 = [i for i in range(spec.shape[0]) if spec[i] != 0]
@@ -345,8 +346,11 @@ class mgf2DMapConverter():
                 self.ms2Data['mz'].append(self.mzData[self.mzData['class'] == c]['mz'].max())
                 self.ms2Data['rt'].append(self.mzData[self.mzData['class'] == c]['rt'].mean())
                 self.ms2Data['name'].append(c)
+                self.ms2Data['sum_intens'].append(sum_intens)
 
         self.ms2Data = pd.DataFrame(self.ms2Data)
+        self.ms2Data['area%'] = self.ms2Data['sum_intens'] * 100 / self.ms2Data['sum_intens'].sum()
+        #print(self.ms2Data)
 
     def reset_intensity(self):
         for i, c in zip(self.ms2Data['max_int'], self.ms2Data['class']):
