@@ -65,6 +65,7 @@ def draw_msMap(msData):
     viewer.transperancy = 0.5
     viewer.draw_map(is_show=False)
     st.bokeh_chart(viewer.plot, use_container_width=True)
+    return viewer
 
 def draw_ms_spectra(msData, sel_class):
 
@@ -210,7 +211,7 @@ with col2:
 
 with col1:
     if msData != None:
-        draw_msMap(msData)
+        viewerMap = draw_msMap(msData)
 
     if selected_class != None:
         draw_ms_spectra(msData, selected_class)
